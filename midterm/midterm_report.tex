@@ -32,13 +32,14 @@
  
 LoRaWAN is commonly utilized for remote sensing applications including environmental and livestock monitoring~\cite{WuFan2018WAwI,IkhsanMukhammadGufron2018MLGf}. The LoRa standard is designed to be a low power solution, with longer range than traditional wireless means of communication (WiFi, Bluetooth, Zigbee, Z-Wave, etc.). It follows that compared to other wireless protocols, LoRa has significantly lower bandwidth and throughput~\cite{WuFan2018WAwI}. Performance measurements of certain LoRa chipsets have concluded that longer ranges are acheivable in a rural setting with the lowest data rates, and that range in urban settings is less, requiring lower data rates at shorter distances than in rural settings~\cite{RamonSanchez-Iborra2018PEoL}. This suggests that dynamic tuning of the radio parameters is necessary based on deployment location. 
 
-MeasureMesh builds on this LPWAN technology to providing a simple, adaptable hardware and software platform that facilitates easy adoption for custom remote sensing networks. By using off the shelf radios and control units for node and gateway hardware, quick time-to-implementation is acheived, allowing for more focus and customization on sensing needs. The gateway utilizes Message Queuing Telemetry Transport (MQTT) protocol for communicating with a server back-end. For the purposes of this paper, a simple sensor data storage back-end and plotting front-end will be implemented on an Ubuntu server.
+MeasureMesh builds on this LPWAN technology to providing a simple, adaptable hardware and software platform that facilitates easy adoption for custom remote sensing networks. By using off the shelf radios and control units for node and gateway hardware, quick time-to-implementation is acheived, allowing for more focus and customization on sensing needs. The gateway utilizes internet protocol for communicating with a server back-end. For the purposes of this paper, a simple sensor data storage back-end and plotting front-end will be implemented.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Project Overview} 
 
+MeasureMesh consists of numerous nodes talking to a gateway which in turn logs collected data to a cloud databse via internet.
 
 project consists of one or many nodes, nodes have same hardware, reconfigure node address in software. sen
 
