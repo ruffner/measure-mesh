@@ -39,17 +39,33 @@ MeasureMesh builds on this LPWAN technology to providing a simple, adaptable har
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Project Overview} 
 
-MeasureMesh consists of numerous nodes talking to a gateway which in turn logs collected data to a cloud databse via internet.
+MeasureMesh consists of a varying number of nodes which communicate to a gateway via LoRa packet radios. The gateway then logs collected data to a cloud databse via internet. Figure \ref{fig:mmoverview} shows the MeasureMesh Implementation of a typical LoRa network topology\footnote{https://lora-alliance.org/about-lorawan}, along with chosen implementation hardware.
 
-project consists of one or many nodes, nodes have same hardware, reconfigure node address in software. sen
+
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=8cm]{images/lorasystem}
-    \caption{LoRa network overview.}
-    \label{fig:lora_overview}
+    \includegraphics[width=8cm]{images/ComonentOverview.png}
+    \caption{Caption}
+    \label{fig:mmoverview}
 \end{figure}
 
+
+There are five major components of MeasureMesh, they can be seen listed in Table \ref{tab:schedule}, along with their completion status. MeasureMesh nodes consist of an Adafruit Radiofruit ATMega32u4 (Arduino programmable), with an on-board RFM95 LoRa compliant radio module \footnote{https://www.adafruit.com/product/3078}. This Radiofruit also includes a LiPo battery charger and USB connection for programming. In order to house these components, a 3D-printable enclosure was designed in CAD. This enclosure can be seen in Fig. \ref{fig:enclosure}. The 3D printed version of this enclosure, with the Node hardware inside, can be seen in Fig. \ref{fig:nodeproto}. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=8cm]{images/NodeEnclosure}
+    \caption{Rendering of CAD model for MeasureMesh Node enclosure. Not shown: the accompanying lid that was designed.}
+    \label{fig:enclosure}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=8cm]{images/nodePrototype}
+    \caption{MeasureMesh Node prototype, with enclosure, battery and antenna.}
+    \label{fig:nodeproto}
+\end{figure}
 
 Describe the overall functionality along with the constituent modules of your project, as envisioned in the final product. Clearly describe different hardware and software parts/modules used or to be used. Use block diagrams, concept diagrams, graphs, flow-charts, algorithms, demo pictures, etc., to aid your description when appropriate.
 
@@ -58,7 +74,30 @@ Describe the overall functionality along with the constituent modules of your pr
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Projected Task Schedule} 
-Divide your project into deliverable tasks and briefly describe the goals and outcomes of each task. For each task, describe an estimated timeline and workload division (in case of group projects). Clearly distinguish completed tasks from to-do tasks.
+Divide your project into deliverable tasks and briefly describe the goals and outcomes of each task. For each task, describe an estimated time-line and workload division (in case of group projects). Clearly distinguish completed tasks from to-do tasks.
+
+There are several deliverables with this project, the first of which are the hardware components of the nodes and gateway. As of now, there exists functional hardware for a single node as well as a single gateway. By the end of the semester I plan to have more than one node device for a more distributed system.
+
+This leaves firmware and software milestones for the remainder of the semester. Table \ref{tab:schedule} shows a tentative schedule for the completion of remain project chunks, as well as the status of task items already finished. The back-end software depends on the completion and operation of the gateway and node firmwares, so it is scheduled to be completed last.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{l|l}
+    Component & Status and ECD \\
+    \hline
+    \hline
+    Node hardware     &  Completed \\
+    Gateway hardware  &  Completed \\
+    Node firmware     & In progress, ECD 4/5/2019 \\
+    Gateway firmware  & In progress, ECD 4/10/2019 \\
+    Backend software  & In progress, ECD 4/20/2019
+    \end{tabular}
+    \vspace{2mm}
+    \caption{Project components and their Expected Completion Date (ECD), if not already completed. }
+    \label{tab:schedule}
+\end{table}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
