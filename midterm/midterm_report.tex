@@ -30,9 +30,9 @@
 \section{Introduction}
  The Lora Alliance is a not profit association promoting the adoption of a Low Power Wide Area Network (LPWAN) IoT standard knows as Long Range WAN (LoRaWAN). It is a viable platform for low bandwidth, low power remote sensing applications. Over 100 complying companies adopt hardware standards including adaptive bitrate and encryption schemes specific to the LoRaWAN protocol.
  
-LoRaWAN is commonly utilized for remote sensing applications including environmental and livestock monitoring~\cite{WuFan2018WAwI,IkhsanMukhammadGufron2018MLGf}. The LoRa standard is designed to be a low power solution, with longer range than traditional wireless means of communication (WiFi, Bluetooth, Zigbee, Z-Wave, etc.). It follows that compared to other wireless protocols, LoRa has significantly lower bandwidth and throughput~\cite{WuFan2018WAwI}. Performance measurements of certain LoRa chipsets have concluded that longer ranges are acheivable in a rural setting with the lowest data rates, and that range in urban settings is less, requiring lower data rates at shorter distances than in rural settings~\cite{RamonSanchez-Iborra2018PEoL}. This suggests that dynamic tuning of the radio parameters is necessary based on deployment location. 
+LoRaWAN is commonly utilized for remote sensing applications including environmental and livestock monitoring~\cite{WuFan2018WAwI,IkhsanMukhammadGufron2018MLGf}. The LoRa standard is designed to be a low power solution, with longer range than traditional wireless means of communication (WiFi, Bluetooth, Zigbee, Z-Wave, etc.). It follows that compared to other wireless protocols, LoRa has significantly lower bandwidth and throughput~\cite{WuFan2018WAwI}. Performance measurements of certain LoRa chipsets have concluded that longer ranges are achievable in a rural setting with the lowest data rates, and that range in urban settings is less, requiring lower data rates at shorter distances than in rural settings~\cite{RamonSanchez-Iborra2018PEoL}. This suggests that dynamic tuning of the radio parameters is necessary based on deployment location. 
 
-MeasureMesh builds on this LPWAN technology to providing a simple, adaptable hardware and software platform that facilitates easy adoption for custom remote sensing networks. By using off the shelf radios and control units for node and gateway hardware, quick time-to-implementation is acheived, allowing for more focus and customization on sensing needs. The gateway utilizes internet protocol for communicating with a server back-end. For the purposes of this paper, a simple sensor data storage back-end and plotting front-end will be implemented.
+MeasureMesh builds on this LPWAN technology to providing a simple, adaptable hardware and software platform that facilitates easy adoption for custom remote sensing networks. By using off the shelf radios and control units for node and gateway hardware, quick time-to-implementation is achieved, allowing for more focus and customization on sensing needs. The gateway utilizes internet protocol for communicating with a server back-end. For the purposes of this paper, a simple sensor data storage back-end and plotting front-end will be implemented.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -46,19 +46,13 @@ MeasureMesh consists of a varying number of nodes which communicate to a gateway
 \begin{figure}[h!]
     \centering
     \includegraphics[width=8cm]{images/ComonentOverview.png}
-    \caption{Caption}
+    \caption{Communication model showing system components and their hardware implementation.}
     \label{fig:mmoverview}
 \end{figure}
 
 
-There are five major components of MeasureMesh, they can be seen listed in Table \ref{tab:schedule}, along with their completion status. MeasureMesh nodes consist of an Adafruit Radiofruit ATMega32u4 (Arduino programmable), with an on-board RFM95 LoRa compliant radio module \footnote{https://www.adafruit.com/product/3078}. This Radiofruit also includes a LiPo battery charger and USB connection for programming. In order to house these components, a 3D-printable enclosure was designed in CAD. This enclosure can be seen in Fig. \ref{fig:enclosure}. The 3D printed version of this enclosure, with the Node hardware inside, can be seen in Fig. \ref{fig:nodeproto}. 
+There are five major components of MeasureMesh, they can be seen listed in Table \ref{tab:schedule}, along with their completion status. MeasureMesh nodes consist of an Adafruit Radiofruit ATMega32u4 (Arduino programmable), with an on-board RFM95 LoRa compliant radio module \footnote{https://www.adafruit.com/product/3078}. This Radiofruit also includes a LiPo battery charger and USB connection for programming. In order to house these components, a 3D-printable enclosure was designed in CAD. The 3D printed version of this enclosure, with the Node hardware inside, can be seen in Fig. \ref{fig:nodeproto}. 
 
-\begin{figure}
-    \centering
-    \includegraphics[width=8cm]{images/NodeEnclosure}
-    \caption{Rendering of CAD model for MeasureMesh Node enclosure. Not shown: the accompanying lid that was designed.}
-    \label{fig:enclosure}
-\end{figure}
 
 \begin{figure}
     \centering
@@ -67,7 +61,21 @@ There are five major components of MeasureMesh, they can be seen listed in Table
     \label{fig:nodeproto}
 \end{figure}
 
-Describe the overall functionality along with the constituent modules of your project, as envisioned in the final product. Clearly describe different hardware and software parts/modules used or to be used. Use block diagrams, concept diagrams, graphs, flow-charts, algorithms, demo pictures, etc., to aid your description when appropriate.
+The same LoRa radio module is also available a a breakout board without the 32u4 processor\footnote{https://www.adafruit.com/product/3072}. This board is used in combination with a commodity ESP8266 development board to create the LoRa $\Longleftrightarrow$ WiFi gateway node. This assembled hardware is functional and has passed basic operations testing. It is shown in Fig. \ref{fig:gatewayproto}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=8cm]{images/gatewayPrototype.jpg}
+    \caption{MeasureMesh Gateway hardware prototype, without enclosure.}
+    \label{fig:gatewayproto}
+\end{figure}
+
+A MeasureMesh node reports its chosen sensor data along with certain meta information such as battery life, Node ID, and the context of the reading it is transmitting (temperature, humidity, light level, etc). MeaureMesh nodes are highly configurable in software and support varying logging intervals, sleeping in between transmitting for maximum power savings as well as multiple sensors per node. 
+
+A MeasureMesh Gateway device acts as a bridge between the LoRa radio and the MeasureMesh back-end. The Gateway is always listening for LoRa packets. When one is received, it interprets the information and forms an HTTP (REST) request to be sent to the MeasureMesh database over the internet. This database address is configurable and may be a local computer or a live website.
+
+The data is stored according to Node and Gateway ID. The user can then browse  a list of available 'streams' of information that have been logged from the Nodes through the Gateway. A user can select one or more of these streams and plot them over an arbitrary timescale. The units of the plots will be according to the metadata associated with each node. 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -97,7 +105,9 @@ This leaves firmware and software milestones for the remainder of the semester. 
     \label{tab:schedule}
 \end{table}
 
+Node firmware and Gateway firmware will be worked on in concert. Since both the ATMega32u4 and the ESP8266 are able to be programmed in the Arduino IDE, there is minimal setup required to be able to start firmware implementation. One limiting factor of the ESP8266 as a gateway as opposed to interfacing the RFM95 LoRa radio directly to say a Raspberry Pi via Serial Peripheral Interface (SPI) is that the ESP8266 cannot connect to WPA2-Enterprise networks (eduroam). This makes a simple demonstration on campus more difficult (can always use phone hot-spot, not a big deal.) However, in a home use scenario, where the gateway is mounted on a wall or under cover outside and constantly powered by a DC supply, the ESP8266 will draw significantly less power than a more sophisticated platform such as the Raspberry Pi would. In this sense, the Raspberry Pi would be overkill and is thus not chosen as a Gateway platform.
 
+The server back-end has the most flexibility. For initial testing purposes, a simple DB schema will be designed, and a data handling service will be written in PHP. In the long run, using a PHP framework such as Symphony or CakePHP would be much more secure, maintainable and flexible, however for the purposes of our class this semester, a simple raw PHP implementation will suffice. That being said, the planned functionality is still for the web server to be able to log information sent to it by the gateway (and only the gateway) and then store it to a database. When the site is accessed on a computer, the user will be able to recall these data and plot them.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -105,8 +115,9 @@ This leaves firmware and software milestones for the remainder of the semester. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Learning Outcome}
 
-What new did you learn for this project? Describe.
+This project is providing an opportunity to explore state of the art radio communication standards that are currently being deployed on a commercial IoT scale. The improved range and lower power consumption that is offered by LoRa radios allows for an even sparser grid of sensors that can last even longer on a given battery, or more efficiently utilize solar power. 
 
+It is also interesting to experiment with actual resulting range differences between urban and rural environments, and line-of-sight versus obstructed communication paths. This will definitely come in to play when recommending Node placements to the end users of MeasureMesh.
 
 
 \bibliographystyle{ieeetr}
