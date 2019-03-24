@@ -1,7 +1,7 @@
 # MeasureMesh
 LoRa based wireless measurement system and analytics interface
 
-
+<img width="300" src="midterm/images/nodePrototype.jpg"/> <img width="300" src="midterm/images/gatewayPrototype.jpg"/>
 
 ### Parts:
 - (Adafruit RFM95 Feather)[https://www.adafruit.com/product/3078]
