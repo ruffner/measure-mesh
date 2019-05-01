@@ -26,7 +26,13 @@ def postValue(val):
         print("created first entry")
         INIT = False
     print(r.content)
-    
+
+# converts 10 bit adc to lipo voltage
+# feather has battery going through a voltage divider
+# so add in x2
+def adcToVoltage(raw):
+    return raw/1023*3.3*2;
+
 #TODO: hardcode device filename with udev rule
 ser = serial.Serial('/dev/ttyUSB0', 115200)
 
@@ -51,6 +57,6 @@ while(True):
             except ValueError:
                 continue
             if idx:
-                postValue(int(line[idx+8:-2]))
+                postValue(adcToVoltage(int(line[idx+8:-2])))
 
 
