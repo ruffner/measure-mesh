@@ -60,26 +60,16 @@ if(isset($_GET['getRun'])) {
 	exit(0);
 }
 
-// main info source for page
+
 if( isset($_GET['ids']) ){
 	$db = new NeatDB();
 	if(!$db->connect()) {
 		exit(1);
 	}
 	
-	// get temperature the device is trying to maintain
-	$row = $db->select("SELECT val FROM params WHERE id='threshold'");
-	$gt = $row[0]['val'];
-	
-	$row = $db->select("SELECT val FROM params WHERE id='interval'");
-	$ui = $row[0]['val'];
-	
 	header('Content-Type: application/json');
 	$data = Array("type" => 	"availableRuns", 
-				  "values" => 	buildRunList($db),
-				  "goalTemp" => $gt,
-				  "upInt" =>	$ui);
-	
+				  "values" => 	buildRunList($db));	
 	echo json_encode($data);
 	exit(0);
 }

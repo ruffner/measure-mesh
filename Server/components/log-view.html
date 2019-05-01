@@ -67,7 +67,7 @@
 					cls.push({	"label": "Cup " + (i+1), "type": "number"});
 				this.$.chart.rows = [];
 				this.$.chart.cols = cls;
-				this.$.chart.options = {"title": "Temperatures for run #" + this.runNum + " on " + e.detail.response[0][0]};
+				this.$.chart.options = {"title": "Battery Voltage of node for run #" + this.runNum + " on " + e.detail.response[0][0]};
 				this.data = e.detail.response;
 			}
 		});
