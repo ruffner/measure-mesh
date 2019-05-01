@@ -1,0 +1,76 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/google-chart/google-chart.html">
+
+<dom-module name="log-view">
+
+  <template>
+    <style>  
+      :host {
+      width: 100%;
+      height: 100%;
+      position: relative;
+				display: block;
+      
+	max-width: 850px;
+	}
+      #chart {
+				width: 100%;
+				height: 500px;
+      }
+    </style>
+    
+    <iron-ajax
+       id="ajax"
+       method="GET"
+       url="../app/log.php"
+       handle-as="json"
+       on-response="handleResponse"
+       debounce-duration="300">
+    </iron-ajax>
+    
+		<paper-material>
+			<google-chart
+				id='chart'
+				type='line'
+				rows="{{data}}">
+			</google-chart>
+    </paper-material>
+  </template>
+  
+  <script>
+
+		Polymer({
+			is: "log-view",
+			properties: {
+				runNum: {
+					type: Number,
+					observer: this.runNumChanged,
+					notify: true
+				}
+			},
+			ready: function() {
+
+			},
+			runNumChanged: function() {
+				this.$.ajax.params = {"getRun": this.runNum};
+				this.$.ajax.generateRequest();
+			},
+			handleResponse: function(e) {
+				var cls = [{"label": "Time", "type": "string"}];
+
+		console.log("log-view components:", e.detail.response);
+		
+				for( var i=0; i<e.detail.response[0].length-1; i++ )
+					cls.push({	"label": "Cup " + (i+1), "type": "number"});
+				this.$.chart.rows = [];
+				this.$.chart.cols = cls;
+				this.$.chart.options = {"title": "Temperatures for run #" + this.runNum + " on " + e.detail.response[0][0]};
+				this.data = e.detail.response;
+			}
+		});
+  </script>
+  
+</dom-module>
