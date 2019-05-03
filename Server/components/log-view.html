@@ -64,7 +64,7 @@
 		console.log("log-view components:", e.detail.response);
 		
 				for( var i=0; i<e.detail.response[0].length-1; i++ )
-					cls.push({	"label": "Cup " + (i+1), "type": "number"});
+					cls.push({	"label": "Data " + (i+1), "type": "number"});
 				this.$.chart.rows = [];
 				this.$.chart.cols = cls;
 				this.$.chart.options = {"title": "Battery Voltage of node for run #" + this.runNum + " on " + e.detail.response[0][0]};
