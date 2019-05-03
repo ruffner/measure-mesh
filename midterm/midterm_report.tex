@@ -83,37 +83,6 @@ The data is stored according to Node and Gateway ID. The user can then browse  a
     \label{fig:mm-ui-data}
 \end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Projected Task Schedule} 
-Divide your project into deliverable tasks and briefly describe the goals and outcomes of each task. For each task, describe an estimated time-line and workload division (in case of group projects). Clearly distinguish completed tasks from to-do tasks.
-
-There are several deliverables with this project, the first of which are the hardware components of the nodes and gateway. As of now, there exists functional hardware for a single node as well as a single gateway. By the end of the semester I plan to have more than one node device for a more distributed system.
-
-This leaves firmware and software milestones for the remainder of the semester. Table \ref{tab:schedule} shows a tentative schedule for the completion of remain project chunks, as well as the status of task items already finished. The back-end software depends on the completion and operation of the gateway and node firmwares, so it is scheduled to be completed last.
-
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{l|l}
-    Component & Status and ECD \\
-    \hline
-    \hline
-    Node hardware     &  Completed \\
-    Gateway hardware  &  Completed \\
-    Node firmware     & In progress, ECD 4/5/2019 \\
-    Gateway firmware  & In progress, ECD 4/10/2019 \\
-    Backend software  & In progress, ECD 4/20/2019
-    \end{tabular}
-    \vspace{2mm}
-    \caption{Project components and their Expected Completion Date (ECD), if not already completed. }
-    \label{tab:schedule}
-\end{table}
-
-Node firmware and Gateway firmware will be worked on in concert. Since both the ATMega32u4 and the ESP8266 are able to be programmed in the Arduino IDE, there is minimal setup required to be able to start firmware implementation. One limiting factor of the ESP8266 as a gateway as opposed to interfacing the RFM95 LoRa radio directly to say a Raspberry Pi via Serial Peripheral Interface (SPI) is that the ESP8266 cannot connect to WPA2-Enterprise networks (eduroam). This makes a simple demonstration on campus more difficult (can always use phone hot-spot, not a big deal.) However, in a home use scenario, where the gateway is mounted on a wall or under cover outside and constantly powered by a DC supply, the ESP8266 will draw significantly less power than a more sophisticated platform such as the Raspberry Pi would. In this sense, the Raspberry Pi would be overkill and is thus not chosen as a Gateway platform.
-
-The server back-end has the most flexibility. For initial testing purposes, a simple DB schema will be designed, and a data handling service will be written in PHP. In the long run, using a PHP framework such as Symphony or CakePHP would be much more secure, maintainable and flexible, however for the purposes of our class this semester, a simple raw PHP implementation will suffice. That being said, the planned functionality is still for the web server to be able to log information sent to it by the gateway (and only the gateway) and then store it to a database. When the site is accessed on a computer, the user will be able to recall these data and plot them.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
