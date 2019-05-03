@@ -51,7 +51,7 @@ MeasureMesh consists of a varying number of nodes which communicate to a gateway
 \end{figure}
 
 
-There are five major components of MeasureMesh, they can be seen listed in Table \ref{tab:schedule}, along with their completion status. MeasureMesh nodes consist of an Adafruit Radiofruit ATMega32u4 (Arduino programmable), with an on-board RFM95 LoRa compliant radio module \footnote{https://www.adafruit.com/product/3078}. This Radiofruit also includes a LiPo battery charger and USB connection for programming. In order to house these components, a 3D-printable enclosure was designed in CAD. The 3D printed version of this enclosure, with the Node hardware inside, can be seen in Fig. \ref{fig:nodeproto}. 
+ MeasureMesh nodes consist of an Adafruit Radiofruit ATMega32u4 (Arduino programmable), with an on-board RFM95 LoRa compliant radio module \footnote{https://www.adafruit.com/product/3078}. This Radiofruit also includes a LiPo battery charger and USB connection for programming. In order to house these components, a 3D-printable enclosure was designed in CAD. The 3D printed version of this enclosure, with the Node hardware inside, can be seen in Fig. \ref{fig:nodeproto}. 
 
 
 \begin{figure}
@@ -70,11 +70,27 @@ The same LoRa radio module is also available a a breakout board without the 32u4
     \label{fig:gatewayproto}
 \end{figure}
 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=7cm]{images/NodeOperation}
+    \caption{Operational state diagram of the MeasureMesh Node firmware.}
+    \label{fig:nodeop}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=7cm]{images/GatewayOperation}
+    \caption{Operational state diagram of the MeasureMesh Gateway firmware}
+    \label{fig:gateop}
+\end{figure}
+
+
 A MeasureMesh node reports its chosen sensor data along with certain meta information such as battery life, Node ID, and the context of the reading it is transmitting (temperature, humidity, light level, etc). MeaureMesh nodes are highly configurable in software and support varying logging intervals, sleeping in between transmitting for maximum power savings as well as multiple sensors per node. 
 
 A MeasureMesh Gateway device acts as a bridge between the LoRa radio and the MeasureMesh back-end. The Gateway is always listening for LoRa packets. When one is received, it interprets the information and forms an HTTP (REST) request to be sent to the MeasureMesh database over the internet. This database address is configurable and may be a local computer or a live website.
 
-The data is stored according to Node and Gateway ID. The user can then browse  a list of available 'streams' of information that have been logged from the Nodes through the Gateway. A user can select one or more of these streams and plot them over an arbitrary timescale. The units of the plots will be according to the metadata associated with each node. 
+The data is stored according to Node and Gateway ID. The user can then browse  a list of available 'streams' of information that have been logged from the Nodes through the Gateway. A user can select one of these streams and plot them.
 
 \begin{figure}
     \centering
