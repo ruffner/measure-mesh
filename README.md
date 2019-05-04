@@ -1,6 +1,9 @@
 # MeasureMesh
 LoRa based wireless measurement system and analytics interface
 
+[Presentation Video](https://www.youtube.com/watch?v=1ulXspFDftA&t=3s)
+[Demonstation Video](https://www.youtube.com/watch?v=nNw1X1mAYoE&t=2s)
+
 ## Node with custom enclosure
 <img width="300" src="midterm/images/mm-node.jpg"/> 
 
